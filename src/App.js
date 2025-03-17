@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { createContext } from "react";
+import ThemeConfig from "./theme";
+import GlobalStyles from "./theme/globalStyles";
+import Router from "./routes";
+import { useJsApiLoader } from "@react-google-maps/api";
+import ScrollToTop from "./birdbox/components/common/ScrollToTop";
 
-function App() {
+export const ThemeContext = createContext(null);
+
+export default function App() {
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: process.env.REACT_APP_G_MAP_API_KEY,
+    libraries: ["places"],
+  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeConfig>
+      <ScrollToTop />
+      <GlobalStyles />
+      <ThemeContext.Provider value={isLoaded}>
+        <Router />
+      </ThemeContext.Provider>
+    </ThemeConfig>
   );
 }
-
-export default App;

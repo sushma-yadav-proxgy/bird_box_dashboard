@@ -1,26 +1,35 @@
 {
   "name": "birdbox-dashboard-web",
+  "author": "Proxgy Team",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^13.2.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.0"
-  },
+  "chromium-args": "--mixed-context",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "cypress:run": "npx cypress run",
+    "build-css": "sass --style=compressed --no-source-map src/:src/",
+    "watch-css": "sass --style=compressed --no-source-map --watch src/:src/",
+    "start": "set \"DISABLE_ESLINT_PLUGIN=true\" && react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject",
+    "lint": "eslint --ext .js,.jsx ./src",
+    "lint:fix": "eslint --fix --ext .js,.jsx ./src",
+    "start:development": "env-cmd -f .env.development.json npm-run-all -p watch-css start",
+    "start:sandbox": "env-cmd -f .env.staging.json npm-run-all -p watch-css start",
+    "start:prod": "env-cmd -f .env.production.json npm-run-all -p watch-css start",
+    "build:development": "env-cmd -f .env.development.json npm run-script build",
+    "build:sandbox": "env-cmd -f .env.staging.json npm run-script build",
+    "build:production": "env-cmd -f .env.production.json npm run-script build"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
     ]
   },
   "browserslist": {
@@ -34,5 +43,44 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@iconify/react": "^5.2.0",
+    "@mui/icons-material": "^6.4.4",
+    "@mui/lab": "^6.0.0-beta.27",
+    "@mui/material": "^6.4.5",
+    "@mui/styles": "^6.4.4",
+    "@react-google-maps/api": "^2.20.6",
+    "@risingstack/react-easy-state": "^6.3.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "amazon-kinesis-video-streams-webrtc": "^2.3.2",
+    "aws-iot-device-sdk": "^2.2.15",
+    "aws-sdk": "^2.1692.0",
+    "axios": "^1.7.9",
+    "buffer": "^6.0.3",
+    "encrypt-storage": "^2.14.6",
+    "formik": "^2.4.6",
+    "path-browserify": "^1.0.1",
+    "process": "^0.11.10",
+    "react": "^18.3.1",
+    "react-app-rewired": "^2.2.1",
+    "react-dom": "^18.3.1",
+    "react-helmet-async": "^2.0.5",
+    "react-router-dom": "^7.1.5",
+    "react-scripts": "5.0.1",
+    "simplebar-react": "^3.3.0",
+    "source-map-loader": "^5.0.0",
+    "stream": "^0.0.3",
+    "stream-browserify": "^3.0.0",
+    "web-vitals": "^2.1.0",
+    "yup": "^1.6.1"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.85.0"
   }
 }
